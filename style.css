@@ -1,0 +1,22 @@
+.aligntitleid{
+    /* text-align: center; */
+    width: 50px;
+}
+
+.alignbodyid{
+    width: 50px;
+}
+.pageBtn{
+    width: 50px;
+    background-color: rgb(154, 154, 247);
+    color: white;
+}
+.pageBtn:hover{
+    background-color: bisque;
+}
+.pageBtn:focus{
+    background-color: bisque;
+}
+.btndiv{
+    text-align: center;
+}
