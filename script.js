@@ -50,10 +50,39 @@ connectionReq.onload = function(){
         });
     }
     function pageLoaded(){
+        var existbtndiv = document.querySelector('.btndiv')
+        if(existbtndiv){
+            existbtndiv.parentNode.removeChild(existbtndiv)
+        }
         var totalPages = Math.floor(dataLength/dataPerPages);
         var div = document.createElement('div');
-        div.className='btndiv'    
-        for(i=1;i<=totalPages;i++){
+        div.className='btndiv'
+        var fbtn = document.createElement('button')
+        fbtn.className='pageBtn'
+        fbtn.setAttribute('type','button');
+        fbtn.innerHTML='First';
+        fbtn.addEventListener('click',function(){
+            currentpage = 1;
+            displaydata(currentpage)
+            pageLoaded();
+        })
+        div.append(fbtn);
+        var pbtn = document.createElement('button')
+        pbtn.className='pageBtn'
+        pbtn.setAttribute('type','button');
+        pbtn.innerHTML='Prev';
+        pbtn.addEventListener('click',function(){
+            if(currentpage>1)
+            currentpage--;
+            displaydata(currentpage)
+            pageLoaded();
+        })
+        div.append(pbtn);
+
+        var startpage = Math.max(1,currentpage-2)
+        var endpage = Math.min(startpage+4,totalPages)
+
+        for(i=startpage;i<=endpage;i++){
             var btn = document.createElement('button')
             btn.className='pageBtn'
             btn.setAttribute('type','button');
@@ -63,10 +92,42 @@ connectionReq.onload = function(){
             {
                 currentpage = parseInt(this.innerHTML);
                 displaydata(currentpage)
+                pageLoaded();
             })
             btn.className='pageBtn'
             btn.setAttribute('type','button');
         }
+        var nbtn = document.createElement('button')
+        nbtn.className='pageBtn'
+        nbtn.setAttribute('type','button');
+        nbtn.innerHTML='Next';
+        nbtn.addEventListener('click',function(){
+            if(currentpage<totalPages)
+            currentpage++;
+            displaydata(currentpage)
+            pageLoaded();
+        })
+        div.append(nbtn);
+        var lbtn = document.createElement('button')
+        lbtn.className='pageBtn'
+        lbtn.setAttribute('type','button');
+        lbtn.innerHTML='Last';
+        lbtn.addEventListener('click',function(){
+            currentpage=totalPages;
+            displaydata(currentpage)
+            pageLoaded();
+        })
+        if(startpage>1){
+            var continuedots = document.createElement('span')
+            continuedots.innerHTML='<<<'
+            div.insertBefore(continuedots,div.children[2])
+        }
+        if(endpage<totalPages){
+            var continuedotsend = document.createElement('span')
+            continuedotsend.innerHTML='>>>'
+            div.insertBefore(continuedotsend,div.children[div.children.length-1])
+        }
+        div.append(lbtn);
         document.body.append(div);
     }
     displaydata(currentpage)
