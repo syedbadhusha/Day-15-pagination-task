@@ -20,7 +20,7 @@ div.setAttribute('class','table-responsive')
 
 var table = document.createElement('table')
 table.setAttribute('class','table table-bordered');
-table.id='tmain';
+table.id='table';
 var thead = document.createElement('thead');
 thead.className='thead-dark'
 
@@ -63,13 +63,14 @@ connectionReq.onload = function(){
         });
     }
     function pageLoaded(){
-        var existbtndiv = document.querySelector('.btndiv')
+        var existbtndiv = document.querySelector('#buttons')
         if(existbtndiv){
             existbtndiv.parentNode.removeChild(existbtndiv)
         }
         var totalPages = Math.floor(dataLength/dataPerPages);
         var divpgNo = document.createElement('div');
-        divpgNo.className='btndiv'
+        divpgNo.className='d-flex justify-content-center'
+        divpgNo.id='buttons'
         var fbtn = document.createElement('button')
         fbtn.className='pageBtn'
         fbtn.setAttribute('type','button');
@@ -94,7 +95,7 @@ connectionReq.onload = function(){
 
         var startpage = Math.max(1,currentpage-2)
         var endpage = Math.min(startpage+4,totalPages)
-
+        
         for(i=startpage;i<=endpage;i++){
             var btn = document.createElement('button')
             btn.className='pageBtn'
