@@ -5,8 +5,21 @@ connectionReq.send();
 
 /////////////   Tags Creations by DOM   /////////
 document.body.className="container";
+var title = document.createElement('h1')
+title.id='title'
+title.className='title'
+title.innerHTML='WEB DEVELOPER TASK'
+
+var pdesc = document.createElement('p');
+pdesc.id='description';
+pdesc.className='title';
+pdesc.innerHTML='Pagination in DOM Manipulation'
+
+var div = document.createElement('div')
+div.setAttribute('class','table-responsive')
+
 var table = document.createElement('table')
-table.className='table table-striped';
+table.setAttribute('class','table table-bordered');
 table.id='tmain';
 var thead = document.createElement('thead');
 thead.className='thead-dark'
@@ -55,8 +68,8 @@ connectionReq.onload = function(){
             existbtndiv.parentNode.removeChild(existbtndiv)
         }
         var totalPages = Math.floor(dataLength/dataPerPages);
-        var div = document.createElement('div');
-        div.className='btndiv'
+        var divpgNo = document.createElement('div');
+        divpgNo.className='btndiv'
         var fbtn = document.createElement('button')
         fbtn.className='pageBtn'
         fbtn.setAttribute('type','button');
@@ -66,7 +79,7 @@ connectionReq.onload = function(){
             displaydata(currentpage)
             pageLoaded();
         })
-        div.append(fbtn);
+        divpgNo.append(fbtn);
         var pbtn = document.createElement('button')
         pbtn.className='pageBtn'
         pbtn.setAttribute('type','button');
@@ -77,7 +90,7 @@ connectionReq.onload = function(){
             displaydata(currentpage)
             pageLoaded();
         })
-        div.append(pbtn);
+        divpgNo.append(pbtn);
 
         var startpage = Math.max(1,currentpage-2)
         var endpage = Math.min(startpage+4,totalPages)
@@ -87,7 +100,7 @@ connectionReq.onload = function(){
             btn.className='pageBtn'
             btn.setAttribute('type','button');
             btn.innerHTML=i;
-            div.append(btn);
+            divpgNo.append(btn);
             btn.addEventListener('click',function()
             {
                 currentpage = parseInt(this.innerHTML);
@@ -107,7 +120,7 @@ connectionReq.onload = function(){
             displaydata(currentpage)
             pageLoaded();
         })
-        div.append(nbtn);
+        divpgNo.append(nbtn);
         var lbtn = document.createElement('button')
         lbtn.className='pageBtn'
         lbtn.setAttribute('type','button');
@@ -120,15 +133,15 @@ connectionReq.onload = function(){
         if(startpage>1){
             var continuedots = document.createElement('span')
             continuedots.innerHTML='<<<'
-            div.insertBefore(continuedots,div.children[2])
+            divpgNo.insertBefore(continuedots,divpgNo.children[2])
         }
         if(endpage<totalPages){
             var continuedotsend = document.createElement('span')
             continuedotsend.innerHTML='>>>'
-            div.insertBefore(continuedotsend,div.children[div.children.length-1])
+            divpgNo.insertBefore(continuedotsend,divpgNo.children[divpgNo.children.length-1])
         }
-        div.append(lbtn);
-        document.body.append(div);
+        divpgNo.append(lbtn);
+        document.body.append(divpgNo);
     }
     displaydata(currentpage)
     pageLoaded();
@@ -138,4 +151,5 @@ connectionReq.onload = function(){
 thead.append(titletr);
 
 table.append(thead,tbody);
-document.body.append(table);
+div.append(table)
+document.body.append(title,pdesc,div);

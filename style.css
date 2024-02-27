@@ -1,8 +1,10 @@
+.title{
+    text-align: center;
+}
 .aligntitleid{
     /* text-align: center; */
     width: 50px;
 }
-
 .alignbodyid{
     width: 50px;
 }
